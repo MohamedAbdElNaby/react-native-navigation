@@ -3,16 +3,13 @@ package com.reactnativenavigation.viewcontrollers.viewcontroller
 import com.facebook.react.ReactInstanceManager
 import com.facebook.react.modules.i18nmanager.I18nUtil
 import com.reactnativenavigation.options.Options
-import com.facebook.react.bridge.ReactContext
 
 class LayoutDirectionApplier {
     fun apply(root: ViewController<*>, options: Options, instanceManager: ReactInstanceManager) {
-        // currentReactContext'in null olup olmadığını kontrol ediyoruz
-        val reactContext = instanceManager.currentReactContext as? ReactContext
-        if (options.layout.direction.hasValue() && reactContext != null) {
+        if (options.layout.direction.hasValue() && instanceManager.currentReactContext != null) {
             root.activity.window.decorView.layoutDirection = options.layout.direction.get()
-            I18nUtil.getInstance().allowRTL(reactContext, options.layout.direction.isRtl)
-            I18nUtil.getInstance().forceRTL(reactContext, options.layout.direction.isRtl)
+            I18nUtil.getInstance().allowRTL(instanceManager.currentReactContext, options.layout.direction.isRtl)
+            I18nUtil.getInstance().forceRTL(instanceManager.currentReactContext, options.layout.direction.isRtl)
         }
     }
 }
