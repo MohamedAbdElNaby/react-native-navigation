@@ -7,7 +7,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.react.ReactGateway;
 import com.reactnativenavigation.viewcontrollers.externalcomponent.ExternalComponentCreator;
-
+import com.facebook.react.soloader.OpenSourceMergedSoMapping;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +23,11 @@ public abstract class NavigationApplication extends Application implements React
 	public void onCreate() {
 		super.onCreate();
         instance = this;
-        SoLoader.init(this, false);
+        try {
+            SoLoader.init(this, OpenSourceMergedSoMapping.INSTANCE);
+        } catch (Exception e) {
+
+        }
         reactGateway = createReactGateway();
 	}
 
@@ -39,7 +43,7 @@ public abstract class NavigationApplication extends Application implements React
 	protected ReactGateway createReactGateway() {
 	    return new ReactGateway(getReactNativeHost());
     }
-    
+
 	public ReactGateway getReactGateway() {
 		return reactGateway;
 	}
