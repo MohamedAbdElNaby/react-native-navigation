@@ -25,7 +25,7 @@ public abstract class NavigationApplication extends Application implements React
         instance = this;
         try {
             SoLoader.init(this, OpenSourceMergedSoMapping.INSTANCE);
-        } catch (IOException e)
+        } catch (Exception e){}
         reactGateway = createReactGateway();
 	}
 
